@@ -4,7 +4,7 @@
         header('Location: login.php');
         exit();
     }
-    if(!(isset($_GET['sn']))){
+    if(!(isset($_GET['tn']))){
         header('Location: index.php');
         exit();
     }
@@ -18,14 +18,14 @@
         echo "Description: " . $connection->connect_error;
         exit();
     }
-    $shortName = $_GET['sn'];
-    $taskNum = $_GET['tn'];
+    $id = $_GET['id'];
+    $task_name = $_GET['task_name'];
 ?>
 
 <?php include 'header.php';?>
 
 <?php
-    $sql = "SELECT * FROM `tasks` WHERE `project_short_name` = '$shortName' AND `project_task_num` = $taskNum";
+    $sql = "SELECT * FROM `tasks` WHERE `id` = '$id' AND `task_name` = $task_name";
      if($result = $connection->query($sql)){
         $rowsCount = $result->num_rows;
         if($rowsCount>0){
@@ -40,9 +40,9 @@
 ?>
 
 <div class="container task-view">
-    <h1><?php echo $shortName . '-' . $taskNum ?></h1>
+    <h1><?php echo $id . '-' . $task_name ?></h1>
     <div class="lg-12">
-        <a class="back" href="board.php?sn=<?php echo $shortName ?>">&lt;--- Back to board</a>
+        <a class="back" href="board.php?sn=<?php echo $id ?>">&lt;--- Back to board</a>
     </div>
     <div class="lg-12 single-task">
         <h2><?php echo $row['task_name']; ?></h2>
